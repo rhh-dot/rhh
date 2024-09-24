@@ -1,0 +1,37 @@
+#include<stdio.h>
+struct LinearModel {
+	double omega;
+	double b; 
+
+};
+struct LinearModel lm ={ 0,0 };
+
+void fit(double x_train[],double y_train[]){
+	lm.omega = (y_train[0] - y_train[1])/(x_train[0] - x_train[1]);
+	lm.b = y_train[0] - x_train[0] * lm.omega;
+	return;
+	
+}
+
+double predict(double x_test){
+	double y_test;
+	y_test = lm.omega*x_test + lm.b;
+	return  y_test;
+
+}
+
+int main(){
+	double X[2],Y[2];
+	printf("Input x1 y1 x2 y2:");
+	scanf("%lf %lf %lf %lf",&X[0],&Y[0],&X[1],&Y[1]);
+	fit(X,Y);
+	printf("Training result: omera=%lf,b=%lf\n\n",lm.omega,lm.b);
+
+
+	double x,y;
+	printf("Input x: ");
+	scanf("%lf",&x);
+	y = predict(x);
+	printf("Predict result: x=%.2lf平米, y=%.2lf万元\n",x,y);
+	return 0;
+}
